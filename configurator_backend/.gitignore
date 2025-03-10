@@ -1,0 +1,8 @@
+build
+dist
+/public/uploads
+/public/useruploads
+/media
+node_modules
+.DS_Store
+.env

@@ -1,0 +1,38 @@
+FROM node:20-alpine AS dependencies
+
+# required for installing sharp (image transformation library)
+RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache git
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm i
+
+FROM node:20-alpine AS build
+
+WORKDIR /usr/src/app
+
+
+# Copy dependencies, package.json, app code
+COPY --from=dependencies ./usr/src/app/package*.json ./
+COPY --from=dependencies ./usr/src/app/node_modules ./node_modules
+COPY . .
+
+RUN npm run build
+
+FROM node:20-alpine AS serve
+
+WORKDIR /usr/src/app
+
+# Copy dependencies, package.json, dist folder, app code
+# source code is required for running migrations
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/build ./build
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/package*.json ./
+COPY . .
+
+
+CMD ["npm", "run", "serve"]

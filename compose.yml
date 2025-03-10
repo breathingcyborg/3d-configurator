@@ -1,0 +1,57 @@
+name:
+  3d_configurator_temp
+
+services:
+
+  mongo_db:
+    image: mongo:5.0.27-focal
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - mongo_db_data:/data/db
+    ports:
+      - '27018:27017'
+
+  configurator_backend:
+    user: 'node'
+    build:
+      context: ./configurator_backend
+      dockerfile: Dockerfile.dev
+      args:
+        - DOCKER_UID=1000
+        - DOCKER_GID=1000
+    ports:
+      - '3000:3000'
+    working_dir: /home/node/app/
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./configurator_backend:/home/node/app
+    depends_on:
+      - mongo_db
+    env_file:
+      - ./.env
+    restart: unless-stopped
+
+  configurator_frontend:
+    user: 'node'
+    build:
+      context: ./configurator_frontend
+      dockerfile: Dockerfile.dev
+      args:
+        - DOCKER_UID=1000
+        - DOCKER_GID=1000
+    ports:
+      - '5173:5173'
+    working_dir: /home/node/app/
+    volumes:
+      - ./configurator_frontend:/home/node/app
+    command: sh -c "npm install --loglevel verbose && npm run dev -- --host"
+    depends_on:
+      - configurator_backend
+    env_file:
+      - ./.env
+    restart: unless-stopped
+
+volumes:
+  mongo_db_data:

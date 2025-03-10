@@ -1,0 +1,14 @@
+FROM node:20-alpine as base
+
+# required for installing sharp (image transformation library)
+RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache git
+
+ARG DOCKER_UID=1005
+ARG DOCKER_GID=${DOCKER_UID}
+
+RUN deluser --remove-home node \
+  && addgroup -S node -g $DOCKER_GID \
+  && adduser -S -G node -u $DOCKER_UID node
+
+USER node
