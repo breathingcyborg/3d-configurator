@@ -1,17 +1,18 @@
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader, RepeatWrapping } from "three";
 import { useEnvContext } from "./context";
+import { getPublicUrl } from "@/lib/utils/urlUtils";
 
 export function GroundPlane() {
 
     const { groundVisible } = useEnvContext();
 
     const [ambientMap, colorMap, displacementMap, normalMap, roughnessMap] = useLoader(TextureLoader, [
-        '/3d/concrete_texture/ao.jpg',
-        '/3d/concrete_texture/diff.jpg',
-        '/3d/concrete_texture/disp.jpg',
-        '/3d/concrete_texture/nor_dx.jpg',
-        '/3d/concrete_texture/rough.jpg',
+        getPublicUrl('/3d/concrete_texture/ao.jpg'),
+        getPublicUrl('/3d/concrete_texture/diff.jpg'),
+        getPublicUrl('/3d/concrete_texture/disp.jpg'),
+        getPublicUrl('/3d/concrete_texture/nor_dx.jpg'),
+        getPublicUrl('/3d/concrete_texture/rough.jpg'),
     ]);
 
     colorMap.repeat.set(10, 10);

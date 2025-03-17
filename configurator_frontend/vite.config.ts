@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://breathingcyborg.gitlab.io/3d-configurator/',
+  base: process.env.VITE_PREFIX || '/',
   plugins: [react()],
   resolve: {
     alias: {

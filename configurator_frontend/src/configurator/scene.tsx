@@ -9,6 +9,7 @@ import { GroundPlane } from './environment/ground-plane';
 import { Lights } from './lights';
 import { useEnvContext } from './environment/context';
 import { NoToneMapping } from 'three';
+import { getPublicUrl } from '@/lib/utils/urlUtils';
 
 
 export function Scene() {
@@ -50,7 +51,7 @@ export function Scene() {
         {/* <CustomSky /> */}
         <Environment
             background={skyVisible}
-            files="/hdr/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
+            files={getPublicUrl("/hdr/kloofendal_48d_partly_cloudy_puresky_2k.hdr")}
         >
         </Environment>
 

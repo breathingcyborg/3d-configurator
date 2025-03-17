@@ -20,4 +20,6 @@ export const router = createBrowserRouter([
       </Layout>
     )
   },
-]);
+], {
+  basename: import.meta.env.VITE_PREFIX,
+});
