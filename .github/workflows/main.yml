@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: ./configurator_frontend/package-lock.json
       - name: Install dependencies
         run: npm ci
         working-directory: ./configurator_frontend
