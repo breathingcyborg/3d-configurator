@@ -3,38 +3,36 @@ import type Har from 'har-format';
 
 import traffic from './traffic.json'
 
-const TRAFFIC_FILE_API_HOST = 'localhost:3000'
+// api base url in traffic file
+const TRAFFIC_FILE_API_BASE = 'http://localhost:3000/api'
 
 // Serves recorded traffic from traffic.json
 // But modifies url so it works for github pages
 const harHandler = fromTraffic(
     traffic as Har.Har,
     (entry) => {
-        const url = new URL(entry.request.url)
-        if (url.host !== TRAFFIC_FILE_API_HOST) {
+        const requestUrl = entry.request.url;
+
+        // Ignore other urls
+        if (!requestUrl.startsWith(TRAFFIC_FILE_API_BASE)) {
             return
         }
-        
-        // Current api base url
-        const apiBase = new URL(import.meta.env.VITE_API_BASE)
 
-        // update host
-        url.host = apiBase.host
+        // change base url from traffic file to current base url
+        entry.request.url = replaceBaseUrl(requestUrl);
 
-        // update pathname
-        url.pathname = url.pathname.replace(/^\/api/, apiBase.pathname)
-
-        // update port
-        if (apiBase.port) {
-            url.port = apiBase.port
-        }
-        
-        // update request url
-        entry.request.url = url.href
-
+        // return updated entry
         return entry;
     }
 );
+
+/** replaces base url of recorded traffic to current api base url */
+function replaceBaseUrl(requestUrl: string) {
+    return requestUrl.replace(
+        TRAFFIC_FILE_API_BASE, 
+        import.meta.env.VITE_API_BASE    
+    );
+}
 
 export const handlers = [
     ...harHandler
