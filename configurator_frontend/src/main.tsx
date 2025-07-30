@@ -10,8 +10,14 @@ async function enableMocking() {
   
   // mocking handler to avoid paying for hosting backend
   const { worker } = await import('./mocks/browser')
- 
-  return worker.start()
+
+  const vitePrefix = (process.env.VITE_PREFIX || '') + '/';
+  
+  return worker.start({
+    serviceWorker: {
+      url: `${vitePrefix}/mockServiceWorker.js`
+    }
+  })
 }
 
 enableMocking().then(() => {
