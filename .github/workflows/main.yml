@@ -40,7 +40,9 @@ jobs:
         run: echo "${{ secrets.ENV }}" > .env
         working-directory: ./configurator_frontend
       - name: Build
-        run: VITE_PREFIX='/3d-configurator' npm run build
+        run: |
+          VITE_PREFIX='/3d-configurator' npm run build
+          cp ./dist/index.html ./dist/404.html
         working-directory: ./configurator_frontend
       - name: Setup Pages
         uses: actions/configure-pages@v4
