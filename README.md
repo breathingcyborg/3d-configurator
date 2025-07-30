@@ -2,6 +2,10 @@
 
 A 3D configurator where users can upload 3d models and create interactive product configurators through the admin panel.
 
+![Demo 1]([https://breathingcyborg.github.io/3d-configurator/models/66fae4ffd1b765156607e375](https://breathingcyborg.github.io/3d-configurator/models/66fae4ffd1b765156607e375))
+
+![Demo 2]([https://breathingcyborg.github.io/3d-configurator/models/66fae4ffd1b765156607e375](https://breathingcyborg.github.io/3d-configurator/models/670e52e1d1b765156607fcc7))
+
 ## Features
 
 - Admin dashboard to create / edit 3d configurators
