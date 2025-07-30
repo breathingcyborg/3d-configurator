@@ -29,7 +29,7 @@ export function Configurator({
             <ConfigEditorMobileDrawer open={open} setOpen={setOpen} />
             <EnvironmentSettingsPopup open={envSettingsOpen} setOpen={setEnvSettingsOpen} />
             <div className={cn({ "bg-gray-200": !inIframe })}>
-                <div className={cn("flex flex-row items-stretch w-full h-screen", { "h-[calc(100vh-100px)]": !inIframe } )}>
+                <div className={cn("flex flex-row items-stretch w-full h-screen", { "h-[calc(100dvh-100px)]": !inIframe } )}>
                     <div className="hidden basis-[400px] flex-shrink-0 lg:flex items-stretch p-4">
                         <ConfigEditor className="rounded-xl shadow"/>
                     </div>

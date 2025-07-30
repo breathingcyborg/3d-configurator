@@ -92,7 +92,7 @@ export function ConfigEditor({
 
     return <div 
         className={cn(
-            "bg-white flex max-h-[55vh] lg:max-h-none flex-col items-stretch w-full lg:border-4",
+            "bg-white flex max-h-[55dvh] lg:max-h-none flex-col items-stretch w-full lg:border-4",
             { "border-transparent": inIframe },
             className
         )}

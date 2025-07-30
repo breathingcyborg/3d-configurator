@@ -11,7 +11,7 @@ export function Layout({
 }) {
     const inIframe = useInIframe();
 
-    return <div style={{ minHeight: '100vh' }}>
+    return <div style={{ minHeight: '100dvh' }}>
         {
             !inIframe && (
                 <div className="w-screen h-[100px] bg-white shadow">
